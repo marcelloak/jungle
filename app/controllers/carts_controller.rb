@@ -1,6 +1,12 @@
 class CartsController < ApplicationController
 
   def show
+    if cart.length == 0
+      render 'empty'
+    end
+  end
+
+  def empty
   end
 
   def add_item

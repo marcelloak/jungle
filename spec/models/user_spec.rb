@@ -47,4 +47,36 @@ RSpec.describe User, type: :model do
       expect(@user.errors.full_messages).to be_include("Password is too short (minimum is 4 characters)")
     end
   end
+
+  describe 'authenticate_with_credentials' do
+    it 'logins if email is in database and password matches' do
+      @user = User.create!(first_name: 'First', last_name: 'Last', email: 'email@email.com', password: 'password', password_confirmation: 'password')
+      user = User.authenticate_with_credentials('email@email.com', 'password')
+      expect(user).to eq(@user)
+    end
+
+    it 'logins if email has whitespace' do
+      @user = User.create!(first_name: 'First', last_name: 'Last', email: 'email@email.com', password: 'password', password_confirmation: 'password')
+      user = User.authenticate_with_credentials('  email@email.com  ', 'password')
+      expect(user).to eq(@user)
+    end
+
+    it 'logins if email has wrong case' do
+      @user = User.create!(first_name: 'First', last_name: 'Last', email: 'email@email.com', password: 'password', password_confirmation: 'password')
+      user = User.authenticate_with_credentials('eMAIl@email.com', 'password')
+      expect(user).to eq(@user)
+    end
+
+    it 'fails if email is not in database' do
+      @user = User.create!(first_name: 'First', last_name: 'Last', email: 'email@email.com', password: 'password', password_confirmation: 'password')
+      user = User.authenticate_with_credentials('email1@email.com', 'password')
+      expect(user).to be_nil
+    end
+
+    it 'fails if password does not match' do
+      @user = User.create!(first_name: 'First', last_name: 'Last', email: 'email@email.com', password: 'password', password_confirmation: 'password')
+      user = User.authenticate_with_credentials('email@email.com', 'password1')
+      expect(user).to be_nil
+    end
+  end
 end

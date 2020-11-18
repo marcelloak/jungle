@@ -28,7 +28,5 @@ RSpec.describe OrderMailer, type: :mailer do
     expect(email.from).to eq ['no-reply@jungle.com']
     expect(email.to).to eq ['email@gmail.com']
     expect(email.subject).to eq "Order ##{@order.id} from Jungle"
-
-    puts email
   end
 end

@@ -1,0 +1,9 @@
+Order #<%= @order.id %>
+
+Thank you for your order!
+
+<% @line_items.each do |item| %>
+  <%= item[:product].name %>, <%= humanized_money_with_symbol item[:product].price %>, <%= item[:quantity].to_i %>, <%= humanized_money_with_symbol item[:product].price * item[:quantity].to_i %>        
+<% end %>
+
+TOTAL: <%= humanized_money_with_symbol @order.total %>

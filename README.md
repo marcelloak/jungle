@@ -3,7 +3,8 @@
 A mini e-commerce application built with Rails 4.2.
 
 ## Features
-- Users can add products to cart and place order
+- Visitors can add products to cart and place order
+- Users receive emails with order receipt
 - Admin can add categories and add or delete products
 
 # Additions
